@@ -6,8 +6,29 @@ Funcionalidade: Usuários
     Então o status da resposta deve ser 200
 
   @test
+  Cenário: Lista usuarios com sucesso
+    Quando eu envio uma requisição GET para "/api/user" com page 0 e size 20
+    Então o status da resposta deve ser 200
+    E a resposta deve conter uma lista
+    E o response deve conter os campos:
+    | id              |
+    | name            |
+    | username        |
+    | email           |
+    | active          |
+    | createdAt       |
+    | lastLoginDoneAt |
+    | department      |
+
+  @test
   Cenário: Lista usuário por e-mail com sucesso
     Quando eu envio requisição GET para "/api/user/email/" com email "brung@rederecord.com.br"
+    Então o status da resposta deve ser 200
+    E o campo email deve conter o email "brung@rederecord.com.br"
+
+  @test
+  Cenário: Alterar usuario
+    Quando eu envio uma requisição PATCH para "/api/user" com dados para alterar usuario com o id 11
     Então o status da resposta deve ser 200
     E o campo email deve conter o email "brung@rederecord.com.br"
 
