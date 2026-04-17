@@ -1,0 +1,38 @@
+{
+  "name": "cineflix-backend-tests",
+  "version": "1.0.0",
+  "description": "REST API tests using BDD with Cucumber, Gherkin, Playwright and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js --require-module ts-node/register --require features/step-definitions/**/*.ts --require features/support/**/*.ts features/**/*.feature --format html:reports/cucumber-report.html", 
+    "test:tag": "cucumber-js --require-module ts-node/register --require features/step-definitions/**/*.ts --require features/support/**/*.ts features/**/*.feature --format html:reports/cucumber-report.html --tags",
+    "test:report": "npm test && start reports/cucumber-report.html",
+    "test:watch": "npm test -- --watch",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "postinstall": "npx playwright install chromium"
+  },
+  "keywords": [
+    "bdd",
+    "cucumber",
+    "gherkin",
+    "playwright",
+    "typescript",
+    "api-testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^9.0.0",
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0",
+    "eslint": "^8.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "playwright": "^1.40.0"
+  }
+}
