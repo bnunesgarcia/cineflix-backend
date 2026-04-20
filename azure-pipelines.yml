@@ -1,0 +1,35 @@
+trigger:
+- automacao-back
+
+variables:
+- group: 'Cineflix-Credentials'
+
+pool:
+  # Aqui é o segredo: peça para o time de infra o nome do "Agent Pool" 
+  # que tem acesso à rede interna (ex: 'Private-Pool' ou 'Default')
+  name: 'Default' 
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Instalar Node.js'
+
+- script: |
+    npm install
+  displayName: 'Instalar Dependências'
+
+- script: |
+    npx playwright install --with-deps
+  displayName: 'Instalar Playwright'
+
+- script: |
+    npm test
+  displayName: 'Executar Testes Cucumber'
+  env:
+    # As variáveis de ambiente que você configurou no .env
+    BASE_URL: $(BASE_URL)
+    URL_AUTH_MICROSOFT: $(URL_AUTH_MICROSOFT)
+    CLIENT_ID: $(CLIENT_ID)
+    CLIENT_SECRET: $(CLIENT_SECRET)
+    SCOPE: $(SCOPE)
