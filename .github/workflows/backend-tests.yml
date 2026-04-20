@@ -27,10 +27,15 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Cucumber Tests
-      run: npm test # Certifique-se que o comando 'npm test' roda seus testes no package.json
+      run: npm test
       env:
-        BASE_URL: ${{ secrets.BASE_URL }} # Explicado abaixo
-        API_TOKEN: ${{ secrets.API_TOKEN }}
+        # Aqui você mapeia o Secret do GitHub para a variável que o seu código espera
+        BASE_URL: ${{ secrets.BASE_URL }}
+        URL_AUTH_MICROSOFT: ${{ secrets.URL_AUTH_MICROSOFT }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        SCOPE: ${{ secrets.SCOPE }}
+        # Adicione todas as outras que estiverem no seu .env
 
     - name: Upload Report
       if: always() # Garante que o relatório seja salvo mesmo se o teste falhar
