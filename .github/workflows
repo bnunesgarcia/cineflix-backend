@@ -1,0 +1,40 @@
+name: Backend Regression Tests
+
+on:
+  push:
+    branches: [ "automacao-back", "main" ] # Roda quando você envia código para essas branches
+  pull_request:
+    branches: [ "automacao-back", "main" ]
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18 # Ou a versão que você usa no seu PC
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run Cucumber Tests
+      run: npm test # Certifique-se que o comando 'npm test' roda seus testes no package.json
+      env:
+        BASE_URL: ${{ secrets.BASE_URL }} # Explicado abaixo
+        API_TOKEN: ${{ secrets.API_TOKEN }}
+
+    - name: Upload Report
+      if: always() # Garante que o relatório seja salvo mesmo se o teste falhar
+      uses: actions/upload-artifact@v4
+      with:
+        name: cucumber-report
+        path: reports/ # Ajuste para a pasta onde seu relatório é gerado
