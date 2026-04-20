@@ -7,7 +7,7 @@ Funcionalidade: Departamentos
 
   @test
   Cenário: Lista departamentos com sucesso
-    Quando eu envio uma requisição GET para "/api/department" com page 0 e size 20
+    Quando eu envio uma requisição GET para o endpoint "/api/department" com page 0 e size 20
     Então o status da resposta deve ser 200
     E a resposta deve conter uma lista
     E o response deve conter os campos "id", "name" e "description"

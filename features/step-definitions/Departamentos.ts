@@ -3,7 +3,7 @@ import { DepartmentPages } from "../../src/pages/DepartmentPages";
 
 const departmentPage = new DepartmentPages();
 
-When('eu envio uma requisição GET para {string} com page {int} e size {int}', async function (endpoint, page, size) {
+When('eu envio uma requisição GET para o endpoint {string} com page {int} e size {int}', async function (endpoint, page, size) {
     await departmentPage.listarDepartamentos(this, endpoint, page, size);
 });
 
